@@ -34,7 +34,7 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.app.Activity;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,6 +75,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.apache.cordova.firebase.Review;
 
 import amazonia.iu.com.amlibrary.client.IUApp;
+import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebasePlugin extends CordovaPlugin {
 
@@ -241,10 +242,16 @@ public class FirebasePlugin extends CordovaPlugin {
     }else if(action.equals("validateLastUserReview")){
      this.validateLastUserReview(callbackContext, args.getString(0));
      return true;
-	}else if(action.equals("getIUId")){
-	 this.getIUId(callbackContext);
-	 return true;
-  }
+	  }else if(action.equals("launch")){
+     this.launch(callbackContext);
+	   return true;
+    }else if(action.equals("onRefreshToken")){
+     this.onRefreshToken(args, callbackContext);
+     return true;
+    }else if(action.equals("onMessageReceived")){
+     this.onMessageReceived(args, callbackContext);
+     return true;
+    }
     return false;
   }
 
@@ -1217,19 +1224,34 @@ public void validateLastUserReview(final CallbackContext callbackContext, String
     });
   }
   //IU 
-    private void getIUId(final CallbackContext callbackContext) {
-    Log.d(TAG, "getIUId called");
-    cordova.getThreadPool().execute(new Runnable() {
-      public void run() {
-        try {
-          String id = IUApp.getFCMSenderId();
-          callbackContext.success(id);
-          Log.d(TAG, "getId success. id: " + id);
-        } catch (Exception e) {
-          Crashlytics.logException(e);
-          callbackContext.error(e.getMessage());
-        }
-      }
-    });
+  private boolean launch(CallbackContext callbackContext) {
+    Activity context = this.cordova.getActivity();
+    IUApp.launch(context);
+    callbackContext.success("IUApp Launched from JS");
+    return true;
   }
+
+  private boolean onRefreshToken(JSONArray data, CallbackContext callbackContext) {
+    Context context = this.cordova.getActivity().getApplicationContext();
+    IUApp.refreshFCMToken(context);
+    callbackContext.success("IUApp Token Refresh called from JS");
+    return true;
+  }
+
+  private boolean onMessageReceived(JSONArray data, CallbackContext callbackContext) {
+    Context context = this.cordova.getActivity().getApplicationContext();
+     try
+     {
+        if(data  != null && data.length() > 0 && IUApp.handleFCMMessage(context, data.getJSONObject(0))) {
+          callbackContext.success("IUApp onMessageReceived called from JS");
+          return true;
+        } 
+      }
+      catch (JSONException e) {
+        e.printStackTrace();
+      }
+    callbackContext.error("IUApp onMessageReceived failed");
+    return false;
+  }
+
 }
