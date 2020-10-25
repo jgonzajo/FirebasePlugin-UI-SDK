@@ -50,10 +50,10 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
   }
 
   public void onNewToken(String s) {
-  super.onNewToken(s);
-  // BEGIN: Add code to refresh IU Token.
-  IUApp.refreshFCMToken(this);
-  // END
+    super.onNewToken(s);
+    // BEGIN: Add code to refresh IU Token.
+    IUApp.refreshFCMToken(this);
+    // END
   }
   /**
    * Called when message is received.
@@ -64,14 +64,12 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
   public void onMessageReceived(RemoteMessage remoteMessage) {
 
      // BEGIN: Enable IU to handle messages targeted for IU
+     // Add the below line on 1st line of the method.
+     if (IUApp.handleFCMMessage(this, remoteMessage)) {
+		    return;
+      }
+     // END
 
-     if (remoteMessage.getFrom().equals(IUApp.getFCMSenderId())) {
-        IUApp.handleFCMMessage(this,remoteMessage) ;
-		return;
-     }
-
-    //IUApp.handleFCMMessage(this,remoteMessage);
- // END
     // [START_EXCLUDE]
     // There are two types of messages data messages and notification messages. Data messages are handled
     // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
