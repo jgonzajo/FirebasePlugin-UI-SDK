@@ -111,7 +111,7 @@
     <framework src="com.google.firebase:firebase-iid:17.0.3" />
     <framework src="com.google.firebase:firebase-database:17.0.0" />
     <framework src="com.google.firebase:firebase-auth:17.0.0"/>
-    <framework src="com.google.firebase:firebase-crashlytics:17.2.2" />
+    <framework src="com.google.firebase:firebase-crashlytics:17.0.0" />
   </platform>
 
   
