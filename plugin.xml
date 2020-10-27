@@ -126,8 +126,6 @@
     -->
   </platform>
 
-  <dependency id="cordova-androidx-build" url="https://github.com/cmfsotelo/cordova-androidx-build.git#1.0-OS.1" />
-
   <platform name="ios">
     <hook type="after_plugin_install" src="scripts/crashlytics/ios/after_plugin_install.js" />
     <hook type="before_plugin_uninstall" src="scripts/crashlytics/ios/before_plugin_uninstall.js" />
