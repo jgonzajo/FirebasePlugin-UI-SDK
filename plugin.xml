@@ -107,10 +107,10 @@
     <framework src="com.google.firebase:firebase-messaging:20.3.0" />
     <framework src="com.google.firebase:firebase-config:19.2.0" />
     <framework src="com.google.firebase:firebase-perf:19.0.9" />
-    <framework src="com.google.firebase:firebase-dynamic-links:17.0.0" />
-    <framework src="com.google.firebase:firebase-iid:17.0.3" />
-    <framework src="com.google.firebase:firebase-database:17.0.0" />
-    <framework src="com.google.firebase:firebase-auth:17.0.0"/>
+    <framework src="com.google.firebase:firebase-dynamic-links:19.1.1" />
+    <framework src="com.google.firebase:firebase-iid:20.3.0" />
+    <framework src="com.google.firebase:firebase-database:19.5.1" />
+    <framework src="com.google.firebase:firebase-auth:19.4.0"/>
     <framework src="com.google.firebase:firebase-crashlytics:17.2.2" />
 
     <!--
