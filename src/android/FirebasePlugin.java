@@ -721,7 +721,8 @@ public class FirebasePlugin extends CordovaPlugin {
             myTrace = self.traces.get(name);
           }
           if (myTrace != null && myTrace instanceof Trace) {
-            myTrace.incrementCounter(counterNamed);
+            //myTrace.incrementCounter(counterNamed); AQUI
+            myTrace.incrementMetric(counterNamed, 1);
             callbackContext.success();
             Log.d(TAG, "incrementCounter success");
           } else {
