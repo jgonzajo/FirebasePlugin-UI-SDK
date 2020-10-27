@@ -104,7 +104,7 @@
 
     <framework src="com.google.gms:google-services:4.3.3" />
     <framework src="com.google.firebase:firebase-analytics:16.5.0" />
-    <framework src="com.google.firebase:firebase-messaging:17.6.0" />
+    <framework src="com.google.firebase:firebase-messaging:20.1.5" />
     <framework src="com.google.firebase:firebase-config:16.5.0" />
     <framework src="com.google.firebase:firebase-perf:16.2.5" />
     <framework src="com.google.firebase:firebase-dynamic-links:17.0.0" />
@@ -112,6 +112,18 @@
     <framework src="com.google.firebase:firebase-database:17.0.0" />
     <framework src="com.google.firebase:firebase-auth:17.0.0"/>
     <framework src="com.google.firebase:firebase-crashlytics:17.0.0" />
+
+    <!--
+      <framework src="com.google.gms:google-services:4.3.3" />
+    <framework src="com.google.firebase:firebase-analytics:16.5.0" />
+    <framework src="com.google.firebase:firebase-messaging:17.6.0" />
+    <framework src="com.google.firebase:firebase-config:16.5.0" />
+    <framework src="com.google.firebase:firebase-perf:16.2.5" />
+    <framework src="com.google.firebase:firebase-dynamic-links:17.0.0" />
+    <framework src="com.google.firebase:firebase-iid:17.0.3" />
+    <framework src="com.google.firebase:firebase-database:17.0.0" />
+    <framework src="com.google.firebase:firebase-auth:17.0.0"/>
+    -->
   </platform>
 
   
