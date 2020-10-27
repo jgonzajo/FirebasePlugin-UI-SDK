@@ -96,7 +96,8 @@
 
 <!--<resource-file src="proguard-iu.txt" target="proguard-iu.txt"/>
     <resource-file src="src/android/config/iuconfig_v6_1.json" target="assets/iuconfig_v6_1.json"/>
-    <resource-file src="src/android/libs/amlibrary-prod-release.aar" target="libs/amlibrary-prod-release.aar"/>-->
+    <resource-file src="src/android/libs/amlibrary-prod-release.aar" target="libs/amlibrary-prod-release.aar"/>
+    <dependency id="cordova-androidx-build" url="https://github.com/cmfsotelo/cordova-androidx-build.git#1.0-OS.1" />-->
     
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
@@ -110,9 +111,10 @@
     <framework src="com.google.firebase:firebase-iid:17.0.3" />
     <framework src="com.google.firebase:firebase-database:17.0.0" />
     <framework src="com.google.firebase:firebase-auth:17.0.0"/>
+    <framework src="com.google.firebase:firebase-crashlytics:17.2.2" />
   </platform>
 
-  <dependency id="cordova-androidx-build" url="https://github.com/cmfsotelo/cordova-androidx-build.git#1.0-OS.1" />
+  
 
   <platform name="ios">
     <hook type="after_plugin_install" src="scripts/crashlytics/ios/after_plugin_install.js" />
