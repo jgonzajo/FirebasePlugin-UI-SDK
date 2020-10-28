@@ -58,9 +58,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 // Crashlytics
-//import com.crashlytics.android.Crashlytics;
-//import io.fabric.sdk.android.Fabric;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 // Dynamic Links
 import com.google.firebase.dynamiclinks.DynamicLink;
