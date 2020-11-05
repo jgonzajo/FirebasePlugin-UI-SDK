@@ -173,10 +173,10 @@ public class FirebasePlugin extends CordovaPlugin {
       if (args.length() > 0) this.fetch(callbackContext, args.getLong(0));
       else this.fetch(callbackContext);
       return true;
-    } else if (action.equals("getByteArray")) {
-      if (args.length() > 1) this.getByteArray(callbackContext, args.getString(0), args.getString(1));
-      else this.getByteArray(callbackContext, args.getString(0), null);
-      return true;
+    //} else if (action.equals("getByteArray")) {
+      //if (args.length() > 1) this.getByteArray(callbackContext, args.getString(0), args.getString(1));
+      //else this.getByteArray(callbackContext, args.getString(0), null);
+      //return true;
     } else if (action.equals("getValue")) {
       if (args.length() > 1) this.getValue(callbackContext, args.getString(0), args.getString(1));
       else this.getValue(callbackContext, args.getString(0), null);
@@ -900,6 +900,7 @@ public class FirebasePlugin extends CordovaPlugin {
     });
   }
 
+  /*
   private void getByteArray(final CallbackContext callbackContext, final String key, final String namespace) {
     cordova.getThreadPool().execute(new Runnable() {
       public void run() {
@@ -917,13 +918,15 @@ public class FirebasePlugin extends CordovaPlugin {
       }
     });
   }
+  */
 
   private void getValue(final CallbackContext callbackContext, final String key, final String namespace) {
     cordova.getThreadPool().execute(new Runnable() {
       public void run() {
         try {
-          FirebaseRemoteConfigValue value = namespace == null ? FirebaseRemoteConfig.getInstance().getValue(key)
-              : FirebaseRemoteConfig.getInstance().getValue(key, namespace);
+          //FirebaseRemoteConfigValue value = namespace == null ? FirebaseRemoteConfig.getInstance().getValue(key)
+              //: FirebaseRemoteConfig.getInstance().getValue(key, namespace);
+          FirebaseRemoteConfigValue value = FirebaseRemoteConfig.getInstance().getValue(key);
           callbackContext.success(value.asString());
         } catch (Exception e) {
           Crashlytics.logException(e);
@@ -980,7 +983,7 @@ public class FirebasePlugin extends CordovaPlugin {
           if (namespace == null)
             FirebaseRemoteConfig.getInstance().setDefaults(defaultsToMap(defaults));
           else
-            FirebaseRemoteConfig.getInstance().setDefaults(defaultsToMap(defaults), namespace);
+            FirebaseRemoteConfig.getInstance().setDefaults(defaultsToMap(defaults));
           callbackContext.success();
         } catch (Exception e) {
           Crashlytics.logException(e);
