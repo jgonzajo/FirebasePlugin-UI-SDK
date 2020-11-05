@@ -132,16 +132,16 @@ exports.fetch = function (cacheExpirationSeconds, success, error) {
   exec(success, error, PLUGIN_NAME, "fetch", args);
 };
 
-exports.getByteArray = function (key, namespace, success, error) {
-  var args = [key];
-  if (typeof namespace === 'string') {
-    args.push(namespace);
-  } else {
-    error = success;
-    success = namespace;
-  }
-  exec(success, error, PLUGIN_NAME, "getByteArray", args);
-};
+//exports.getByteArray = function (key, namespace, success, error) {
+  //var args = [key];
+  //if (typeof namespace === 'string') {
+    //args.push(namespace);
+  //} else {
+    //error = success;
+    //success = namespace;
+  //}
+  //exec(success, error, PLUGIN_NAME, "getByteArray", args);
+//};
 
 exports.getValue = function (key, namespace, success, error) {
   var args = [key];
