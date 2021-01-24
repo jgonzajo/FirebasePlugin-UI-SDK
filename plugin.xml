@@ -178,6 +178,7 @@
 				<pod name="Firebase/Performance" spec="6.33.0"/>
 				<pod name="Firebase/RemoteConfig" spec="6.33.0"/>
 				<pod name="Firebase/Crashlytics" spec="6.33.0"/>
+        <pod name="Firebase/Database" spec="6.33.0"/>
 				
 			</pods>
 		</podspec>
