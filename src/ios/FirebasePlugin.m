@@ -2,8 +2,8 @@
 #import <Cordova/CDV.h>
 #import "AppDelegate.h"
 #import "Firebase.h"
-//@import Fabric;
-//@import Crashlytics;
+@import Fabric;
+@import Crashlytics;
 @import FirebaseInstanceID;
 @import FirebaseMessaging;
 @import FirebaseAnalytics;
@@ -282,7 +282,6 @@ static FirebasePlugin *firebasePlugin;
 //
 // Crashlytics
 //
-/*
 - (void)logError:(CDVInvokedUrlCommand *)command {
     [self.commandDelegate runInBackground:^{
         NSString* errorMessage = [command.arguments objectAtIndex:0];
@@ -303,7 +302,6 @@ static FirebasePlugin *firebasePlugin;
 - (void)forceCrashlytics:(CDVInvokedUrlCommand *)command {
     [[Crashlytics sharedInstance] crash];
 }
-*/
 
 //
 // Remote Config

@@ -172,10 +172,6 @@ public class FirebasePlugin extends CordovaPlugin {
       if (args.length() > 0) this.fetch(callbackContext, args.getLong(0));
       else this.fetch(callbackContext);
       return true;
-    //} else if (action.equals("getByteArray")) {
-      //if (args.length() > 1) this.getByteArray(callbackContext, args.getString(0), args.getString(1));
-      //else this.getByteArray(callbackContext, args.getString(0), null);
-      //return true;
     } else if (action.equals("getValue")) {
       if (args.length() > 1) this.getValue(callbackContext, args.getString(0), args.getString(1));
       else this.getValue(callbackContext, args.getString(0), null);
@@ -899,32 +895,10 @@ public class FirebasePlugin extends CordovaPlugin {
     });
   }
 
-  /*
-  private void getByteArray(final CallbackContext callbackContext, final String key, final String namespace) {
-    cordova.getThreadPool().execute(new Runnable() {
-      public void run() {
-        try {
-          byte[] bytes = namespace == null ? FirebaseRemoteConfig.getInstance().getByteArray(key)
-              : FirebaseRemoteConfig.getInstance().getByteArray(key, namespace);
-          JSONObject object = new JSONObject();
-          object.put("base64", Base64.encodeToString(bytes, Base64.DEFAULT));
-          object.put("array", new JSONArray(bytes));
-          callbackContext.success(object);
-        } catch (Exception e) {
-          Crashlytics.logException(e);
-          callbackContext.error(e.getMessage());
-        }
-      }
-    });
-  }
-  */
-
   private void getValue(final CallbackContext callbackContext, final String key, final String namespace) {
     cordova.getThreadPool().execute(new Runnable() {
       public void run() {
         try {
-          //FirebaseRemoteConfigValue value = namespace == null ? FirebaseRemoteConfig.getInstance().getValue(key)
-              //: FirebaseRemoteConfig.getInstance().getValue(key, namespace);
           FirebaseRemoteConfigValue value = FirebaseRemoteConfig.getInstance().getValue(key);
           callbackContext.success(value.asString());
         } catch (Exception e) {

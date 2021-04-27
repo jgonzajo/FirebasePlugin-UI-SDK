@@ -39,23 +39,23 @@ module.exports = {
 
     // Build the body of the script to be executed during the build phase.
     // var script = '"' + '\\"${SRCROOT}\\"' + "/\\\"" + utilities.getAppName(context) + "\\\"/Plugins/" + utilities.getPluginId() + "/Fabric.framework/run" + '"';
-    //var script = '"\\"${PODS_ROOT}/Fabric/run\\""';
+    var script = '"\\"${PODS_ROOT}/Fabric/run\\""';
 
     // Generate a unique ID for our new build phase.
     var id = xcodeProject.generateUuid();
     // Create the build phase.
-    //xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[id] = {
-      //    isa: "PBXShellScriptBuildPhase",
-      //    buildActionMask: 2147483647,
-      //    files: [],
-      //    inputPaths: [],
-      //    name: comment,
-      //    outputPaths: [],
-      //    runOnlyForDeploymentPostprocessing: 0,
-      //    shellPath: "/bin/sh",
-      //    shellScript: script,
-      //    showEnvVarsInLog: 0
-      //  };
+    xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[id] = {
+          isa: "PBXShellScriptBuildPhase",
+          buildActionMask: 2147483647,
+          files: [],
+          inputPaths: [],
+          name: comment,
+          outputPaths: [],
+          runOnlyForDeploymentPostprocessing: 0,
+          shellPath: "/bin/sh",
+          shellScript: script,
+          showEnvVarsInLog: 0
+        };
 
     // Add a comment to the block (viewable in the source of the pbxproj file).
     xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[id + "_comment"] = comment;
