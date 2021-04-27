@@ -437,7 +437,29 @@ static FirebasePlugin *firebasePlugin;
 //
 
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command {
+    NSLog(@"Init  authCustomToken"); 
     NSString* mCustomToken = [command.arguments objectAtIndex:0];
+    CDVPluginResult *pluginResult;
+
+    @try {
+        NSLog(@"Try  authCustomToken"); 
+        [[FIRAuth auth] signInWithCustomToken:mCustomToken completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+            CDVPluginResult *pluginResult;
+            if (error){
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Authentication failed."];
+            }else{
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Authentication successful."];
+            }
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+    } @catch (NSException *exception) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: exception.reason];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        NSLog(@"catch  authCustomToken"); 
+    }
+
+
+    /**NSString* mCustomToken = [command.arguments objectAtIndex:0];
 
     [[FIRAuth auth] signInWithCustomToken:mCustomToken completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
         CDVPluginResult *pluginResult;
@@ -447,7 +469,7 @@ static FirebasePlugin *firebasePlugin;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Authentication successful."];
         }
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
+    }];*/
 }
 
 - (void)signOut:(CDVInvokedUrlCommand *)command {
