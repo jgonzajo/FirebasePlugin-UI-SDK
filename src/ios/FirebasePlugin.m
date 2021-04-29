@@ -473,6 +473,8 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)signOut:(CDVInvokedUrlCommand *)command {
+    NSLog(@"Init  signOut"); 
+    @try{
         NSError *signOutError;
         BOOL status = [[FIRAuth auth] signOut:&signOutError];
         if (!status) {
@@ -480,6 +482,10 @@ static FirebasePlugin *firebasePlugin;
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out"];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
+    }@catch(NSException *exception){
+        NSLog(@"catch signOut");
+    }
+        
 }
 
 
@@ -488,43 +494,61 @@ static FirebasePlugin *firebasePlugin;
 //
 
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
-    NSString *phoneNumber = [command.arguments objectAtIndex:0];
-    NSString *registerDate = [command.arguments objectAtIndex:1];
-    NSString *contractNumber = [command.arguments objectAtIndex:2];
-    NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] key];
-    NSDictionary *user = @{
-                        @"phoneNumber": phoneNumber,
-                        @"registerDate": registerDate
-                        };
-    [[[[[FIRDatabase database] reference] child:@"users"] child:key] setValue:user withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
-        } else {
-            //NSLog(@"Data saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
+    NSLog(@"Init  writeUsers"); 
+    @try{
+        NSString *phoneNumber = [command.arguments objectAtIndex:0];
+        NSString *registerDate = [command.arguments objectAtIndex:1];
+        NSString *contractNumber = [command.arguments objectAtIndex:2];
+        NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] key];
+        NSDictionary *user = @{
+                            @"phoneNumber": phoneNumber,
+                            @"registerDate": registerDate
+                            };
+        [[[[[FIRDatabase database] reference] child:@"users"] child:key] setValue:user withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+            CDVPluginResult *pluginResult;
+            if (error) {
+                //NSLog(@"Data could not be saved: %@", error);
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+            } else {
+                //NSLog(@"Data saved successfully.");
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
+            }
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+    }@catch(NSException *exception){
+        NSLog(@"catch writeUsers");
+    }
+
+
+
+
+
 }
 
 - (void)writeDate:(CDVInvokedUrlCommand *)command {
-    NSString *date = [command.arguments objectAtIndex:0];
-    NSString *contractNumber = [command.arguments objectAtIndex:1];
-    [[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] setValue:date withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
-        } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
+    NSLog(@"Init  writeDate");
+    @try{
+        NSString *date = [command.arguments objectAtIndex:0];
+        NSString *contractNumber = [command.arguments objectAtIndex:1];
+        [[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] setValue:date withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+            CDVPluginResult *pluginResult;
+            if (error) {
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+            } else {
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+            }
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+    }@catch(NSException *exception){
+        NSLog(@"catch writeDate");
+    }
+
+
+
 }
 
 - (void)writeReviews:(CDVInvokedUrlCommand *)command {
-
+    NSLog(@"Init  writeReviews");
     @try{
         NSString *calification = [command.arguments objectAtIndex:0];
         NSString *date = [command.arguments objectAtIndex:1];
@@ -550,7 +574,7 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
-
+    NSLog(@"Init  writeReviewsWithComment");
     @try{
         NSString *calification = [command.arguments objectAtIndex:0];
         NSString *comment = [command.arguments objectAtIndex:1];
@@ -578,19 +602,26 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)userExist:(CDVInvokedUrlCommand *)command {
-    NSString *contractNumber = [command.arguments objectAtIndex:0];
-    [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        CDVPluginResult *pluginResult;
-        if(snapshot.exists){
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"True"];
-        }else{
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"False"];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    } withCancelBlock:^(NSError * _Nonnull error) {
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error getting result."];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
+    NSLog(@"Init  userExist");
+    @try{
+        NSString *contractNumber = [command.arguments objectAtIndex:0];
+        [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            CDVPluginResult *pluginResult;
+            if(snapshot.exists){
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"True"];
+            }else{
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"False"];
+            }
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        } withCancelBlock:^(NSError * _Nonnull error) {
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error getting result."];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
+
+    }@catch(NSException *exception){
+        NSLog(@"catch userExist"); 
+    }    
+
 }
 
 @end
